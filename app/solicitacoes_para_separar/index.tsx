@@ -5,7 +5,9 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
-  View
+  View,
+  TouchableOpacity,
+  Alert,
 } from "react-native";
 
 const solicitacoes = [
@@ -29,35 +31,50 @@ const solicitacoes = [
   },
 ];
 
-export default function SolicitacoesSeparar() {
-  const renderItem = ({ item, index }: any) => (
-    <View style={styles.itemRow}>
-      {/* Linha do tempo */}
-      <View style={styles.timeline}>
-        <View style={styles.circle} />
-        {index < solicitacoes.length - 0 && <View style={styles.line} />}
+export default function SolicitacoesSeparar({ navigation }: any) {
+  const handleAprovar = (item: any) => {
+    Alert.alert("Solicitação aprovada", `Produto ${item.codigo} aprovado! ✅`);
+  };
+
+  const handleRecusar = (item: any) => {
+    Alert.alert("Solicitação recusada", `Produto ${item.codigo} recusado ❌`);
+  };
+
+  const renderItem = ({ item }: any) => (
+    <View style={styles.card}>
+      <View style={styles.cardHeader}>
+        <Ionicons name="cube-outline" size={22} color="#3C4AA8" />
+        <Text style={styles.codigo}>{item.codigo}</Text>
       </View>
 
-      {/* Conteúdo */}
-      <View style={styles.itemContent}>
-        <Text style={styles.label}>Código do produto</Text>
-        <View style={styles.box}>
-          <Text style={styles.value}>{item.codigo}</Text>
-        </View>
-
+      <View style={styles.infoContainer}>
         <Text style={styles.label}>Quantidade</Text>
-        <View style={styles.box}>
-          <Text style={styles.value}>{item.quantidade}</Text>
-        </View>
+        <Text style={styles.value}>{item.quantidade}</Text>
 
         {item.justificativa && (
           <>
             <Text style={styles.label}>Justificativa</Text>
-            <View style={styles.box}>
-              <Text style={styles.value}>{item.justificativa}</Text>
-            </View>
+            <Text style={styles.value}>{item.justificativa}</Text>
           </>
         )}
+      </View>
+
+      <View style={styles.actions}>
+        <TouchableOpacity
+          style={[styles.button, styles.aprovar]}
+          onPress={() => handleAprovar(item)}
+        >
+          <Ionicons name="checkmark-circle" size={20} color="#fff" />
+          <Text style={styles.buttonText}>Aprovar</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.button, styles.recusar]}
+          onPress={() => handleRecusar(item)}
+        >
+          <Ionicons name="close-circle" size={20} color="#fff" />
+          <Text style={styles.buttonText}>Recusar</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -66,73 +83,103 @@ export default function SolicitacoesSeparar() {
     <SafeAreaView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <Ionicons name="arrow-back" size={24} color="#fff" />
-        <Text style={styles.headerTitle}>Solicitações para Separar</Text>
+        <TouchableOpacity onPress={() => navigation?.goBack()}>
+          <Ionicons name="arrow-back" size={24} color="#fff" />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>Solicitações Pendentes</Text>
       </View>
 
-      {/* Lista */}
+      {/* Lista de solicitações */}
       <FlatList
         data={solicitacoes}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={{ padding: 20, paddingBottom: 80 }}
+        contentContainerStyle={styles.listContainer}
+        showsVerticalScrollIndicator={false}
       />
-
-      {/* Bottom Menu */}
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#fff" },
+  container: { flex: 1, backgroundColor: "#F6F6F6" },
+
   header: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#3C4AA8",
     paddingHorizontal: 16,
-    paddingVertical: 14
+    paddingVertical: 14,
+    elevation: 3,
   },
   headerTitle: {
     color: "#fff",
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
     marginLeft: 10,
   },
-  itemRow: { flexDirection: "row", marginBottom: 25 },
-  timeline: { alignItems: "center", width: 20 },
-  circle: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    backgroundColor: "#bbb",
+
+  listContainer: {
+    padding: 16,
+    paddingBottom: 100, // evita sobreposição com a navbar
   },
-  line: {
-    width: 2,
-    flex: 1,
-    backgroundColor: "#bbb",
-    marginTop: 2,
+
+  card: {
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    padding: 16,
+    marginBottom: 14,
+    shadowColor: "#000",
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 1,
   },
-  itemContent: { flex: 1, marginLeft: 10 },
-  label: { fontWeight: "700", marginBottom: 4, fontSize: 14 },
-  box: {
-    backgroundColor: "#e6e6e6",
-    borderRadius: 4,
-    paddingVertical: 4,
-    paddingHorizontal: 8,
+  cardHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 8,
+  },
+  codigo: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#3C4AA8",
+    marginLeft: 6,
+  },
+  infoContainer: {
     marginBottom: 10,
   },
-  value: { fontSize: 14, color: "#333" },
-  bottomMenu: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    backgroundColor: "#3C4AA8",
-    paddingVertical: 10,
+  label: {
+    fontWeight: "700",
+    color: "#555",
+    fontSize: 13,
+    marginTop: 6,
   },
-  submitButton: {
-    backgroundColor: "#3C4AA8",
-    borderRadius: 50,
-    padding: 5,
-    marginHorizontal: 15,
+  value: {
+    fontSize: 14,
+    color: "#333",
+    backgroundColor: "#EEE",
+    borderRadius: 6,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    marginTop: 2,
+  },
+  actions: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 10,
+  },
+  button: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+  },
+  aprovar: { backgroundColor: "#3C4AA8" },
+  recusar: { backgroundColor: "#C0392B" },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "600",
+    marginLeft: 6,
   },
 });
