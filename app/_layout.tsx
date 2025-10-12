@@ -1,24 +1,19 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { Stack } from "expo-router";
+import Navbar from "./components/Navbar";
+import { usePathname } from "expo-router";
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
+export default function Layout() {
+  const pathname = usePathname();
 
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+  // Lista de telas que NÃO devem ter a Navbar
+  const hideNavbarRoutes = ["/login", "/register"];
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  const showNavbar = !hideNavbarRoutes.includes(pathname);
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <>
+      {showNavbar && <Navbar />}
+      <Stack />
+    </>
   );
 }

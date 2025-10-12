@@ -12,7 +12,7 @@ import {
 export default function App() {
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#3F51B5" />
+      <StatusBar barStyle="light-content" backgroundColor="#3C4AA8" />
 
       {/* Header */}
       <View style={styles.header}>
@@ -101,9 +101,9 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#3F51B5",
-    paddingVertical: 14,
-    paddingHorizontal: 12,
+    backgroundColor: "#3C4AA8",
+    paddingHorizontal: 16,
+    paddingVertical: 14
   },
   headerTitle: {
     color: "#fff",
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    backgroundColor: "#3F51B5",
+    backgroundColor: "#3C4AA8",
     height: 60,
   },
 
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 30,
     alignSelf: "center",
-    backgroundColor: "#3F51B5",
+    backgroundColor: "#3C4AA8",
     borderRadius: 40,
     padding: 14,
     elevation: 4,

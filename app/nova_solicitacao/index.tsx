@@ -78,17 +78,16 @@ const styles = StyleSheet.create({
   },
   container: {
     flexGrow: 1,
-    paddingHorizontal: 18,
-    paddingTop: 32,
+  
     paddingBottom: 80,
     backgroundColor: "#fff",
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#3B4BA6",
-    padding: 25,
-    marginTop: 40,
+    backgroundColor: "#3C4AA8",
+    paddingHorizontal: 16,
+    paddingVertical: 14
   },
   headerTitle: {
     color: "#fff",

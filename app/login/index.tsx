@@ -46,13 +46,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 43,
     fontWeight: "bold",
-    color: "#3D4DA6",
+    color: "#3C4AA8",
     marginTop: 100
   },
   subtitle: {
     fontSize: 22,
     fontWeight: "bold",
-    color: "#3E4DD0",
+    color: "#3C4AA8",
     textAlign: "center",
     marginBottom: 30,
   },
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     margin: 18
   },
   button: {
-    backgroundColor: "#3D4DA6",
+    backgroundColor: "#3C4AA8",
     padding: 20,
     borderRadius: 20,
     alignItems: "center",
@@ -93,12 +93,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   customText: {
-    color: "#3E4DD0",
+    color: "#3C4AA8",
     fontSize: 18,
   },
   underline: {
     height: 2,                
-    backgroundColor: "#3E4DD0",
+    backgroundColor: "#3C4AA8",
     marginTop: 2,            
   }
 });

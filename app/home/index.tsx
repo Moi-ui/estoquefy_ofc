@@ -36,23 +36,23 @@ export default function App() {
           {/* Menu Cards modernizados */}
           <View style={styles.menuModern}>
             <TouchableOpacity style={styles.cardModern} onPress={() => router.push('/nova_solicitacao')}>
-              <Ionicons name="notifications-outline" size={32} color="#3F51B5" />
+              <Ionicons name="notifications-outline" size={32} color="#3C4AA8" />
               <Text style={styles.cardTextModern}>Nova Solicitação</Text>
             </TouchableOpacity>
 
             <View style={styles.rowModern}>
               <TouchableOpacity style={styles.cardSmallModern} onPress={() => router.push('/minhas_solicitacoes')}>
-                <MaterialIcons name="calendar-today" size={28} color="#3F51B5" />
+                <MaterialIcons name="calendar-today" size={28} color="#3C4AA8" />
                 <Text style={styles.cardTextModern}>Minhas solicitações</Text>
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.cardSmallModern} onPress={() => router.push('/solicitacao')}>
-                <FontAwesome5 name="folder" size={28} color="#3F51B5" />
+                <FontAwesome5 name="folder" size={28} color="#3C4AA8" />
                 <Text style={styles.cardTextModern}>Relatórios</Text> 
               </TouchableOpacity>
             </View>
             <TouchableOpacity style={styles.cardModern} onPress={() => router.push('/solicitacoes_para_separar')}>
-              <FontAwesome5 name="box" size={32} color="#3F51B5" />
+              <FontAwesome5 name="box" size={32} color="#3C4AA8" />
               <Text style={styles.cardTextModern}>Estoque</Text>
             </TouchableOpacity>
           </View>

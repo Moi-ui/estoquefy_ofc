@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { goBack } from "expo-router/build/global-state/routing";
 import React from "react";
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -45,7 +46,7 @@ export default function App() {
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={goBack}>
           <Ionicons name="arrow-back" size={24} color="#fff" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Notificações</Text>
@@ -127,7 +128,7 @@ const styles = StyleSheet.create({
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                backgroundColor: '#3D4DA6',
+                backgroundColor: '#3C4AA8',
                 paddingHorizontal: 16,
                 paddingVertical: 8,
                 elevation: 8,
@@ -156,7 +157,7 @@ const styles = StyleSheet.create({
             borderRadius: 36,
             backgroundColor: '#5686F5',
             borderWidth: 3,
-            borderColor: '#3D4DA6',
+            borderColor: '#3C4AA8',
             alignItems: 'center',
             justifyContent: 'center',
             marginHorizontal: 8,
@@ -164,7 +165,7 @@ const styles = StyleSheet.create({
             marginBottom: -10,
             elevation: 8,
             zIndex: 20,
-            shadowColor: '#3D4DA6',
+            shadowColor: '#3C4AA8',
             shadowOffset: { width: 0, height: 2 },
             shadowOpacity: 0.2,
             shadowRadius: 8,

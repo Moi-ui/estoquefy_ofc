@@ -79,7 +79,6 @@ export default function SolicitacoesSeparar() {
       />
 
       {/* Bottom Menu */}
-        // Bottom navigation removed
     </SafeAreaView>
   );
 }
@@ -89,8 +88,9 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#3B4BA6",
-    padding: 15,
+    backgroundColor: "#3C4AA8",
+    paddingHorizontal: 16,
+    paddingVertical: 14
   },
   headerTitle: {
     color: "#fff",
@@ -126,11 +126,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    backgroundColor: "#3B4BA6",
+    backgroundColor: "#3C4AA8",
     paddingVertical: 10,
   },
   submitButton: {
-    backgroundColor: "#3B4BA6",
+    backgroundColor: "#3C4AA8",
     borderRadius: 50,
     padding: 5,
     marginHorizontal: 15,

@@ -13,10 +13,10 @@ import {
 const SolicitacaoDetalhesScreen = () => {
     return (
         <SafeAreaView style={styles.container}>
-            <StatusBar barStyle="light-content" backgroundColor="#3F51B5" />
+            <StatusBar barStyle="light-content" backgroundColor="#3C4AA8" />
              {/* Header */}
                     <View style={styles.header}>
-                      <Ionicons name="arrow-back" size={28} color="#fff" />
+                      <Ionicons name="arrow-back" size={28} color="#fff"/>
                       <Text style={styles.headerTitle}>Minhas Solicitação</Text>
                     </View>
             {/* Content */}
@@ -75,9 +75,9 @@ const styles = StyleSheet.create({
       header: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#3B4BA6",
-    padding: 25,
-    marginTop: 40,
+    backgroundColor: "#3C4AA8",
+    paddingHorizontal: 16,
+    paddingVertical: 14
   },
   headerTitle: {
     color: "#fff",
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
     },
     badgeText: {
-        color: '#3F51B5',
+        color: '#3C4AA8',
         fontWeight: 'bold',
         fontSize: 12,
     },
