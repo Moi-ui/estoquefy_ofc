@@ -1,14 +1,16 @@
 import { Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
+import { goBack } from 'expo-router/build/global-state/routing';
 import React from 'react';
 import {
-    SafeAreaView,
     ScrollView,
     StatusBar,
     StyleSheet,
     Text,
     TouchableOpacity,
-    View,
+    View
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const SolicitacaoDetalhesScreen = () => {
     return (
@@ -16,7 +18,9 @@ const SolicitacaoDetalhesScreen = () => {
             <StatusBar barStyle="light-content" backgroundColor="#3C4AA8" />
              {/* Header */}
                     <View style={styles.header}>
-                      <Ionicons name="arrow-back" size={28} color="#fff"/>
+                        <TouchableOpacity onPress={goBack}>
+                            <Ionicons name="arrow-back" size={28} color="#fff"/>
+                        </TouchableOpacity>
                       <Text style={styles.headerTitle}>Minhas Solicitações</Text>
                     </View>
             {/* Content */}

@@ -11,8 +11,9 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { goBack } from "expo-router/build/global-state/routing";
 
-export default function NovaSolicitacao({ navigation }) {
+export default function NovaSolicitacao({ }) {
   const [area, setArea] = useState("");
   const [produto, setProduto] = useState("");
   const [quantidade, setQuantidade] = useState("");

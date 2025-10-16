@@ -12,6 +12,8 @@ import {
   MaterialCommunityIcons,
   MaterialIcons,
 } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { goBack } from "expo-router/build/global-state/routing";
 
 export default function HistoricoSolicitacoes() {
   const solicitacoes = [
@@ -46,12 +48,13 @@ export default function HistoricoSolicitacoes() {
 
 
   return (
-    <View style={styles.container}>
+
+    <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#3C4AA8" />
 
       {/* Cabeçalho */}
       <View style={styles.header}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={goBack}>
           <Ionicons name="arrow-back" size={26} color="#fff" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Histórico de Solicitações</Text>
@@ -98,7 +101,7 @@ export default function HistoricoSolicitacoes() {
           </View>
         ))}
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 

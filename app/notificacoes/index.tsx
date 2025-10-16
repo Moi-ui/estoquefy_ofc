@@ -1,8 +1,9 @@
 import { Ionicons } from "@expo/vector-icons";
 import { goBack } from "expo-router/build/global-state/routing";
 import React from "react";
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, StyleSheet, Text, TouchableOpacity, View, StatusBar } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function App() {
 
@@ -43,26 +44,29 @@ export default function App() {
   );
 
   return (
-    
-    <View>
-      {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity onPress={goBack}>
-          <Ionicons name="arrow-back" size={24} color="#fff" />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Notificações</Text>
+    <SafeAreaView>
+      <StatusBar barStyle="light-content" backgroundColor="#3C4AA8" />
+      <View>
+        {/* Header */}
+        <View style={styles.header}>
+          <TouchableOpacity onPress={goBack}>
+            <Ionicons name="arrow-back" size={24} color="#fff" />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>Notificações</Text>
+        </View>
+
+        {/* Lista */}
+        <FlatList
+          data={notifications}
+          keyExtractor={(item) => item.id}
+          renderItem={renderItem}
+          contentContainerStyle={{ padding: 16, paddingBottom: 80 }}
+        />
+
+    {/* ...existing code... */}
       </View>
+    </SafeAreaView>);''
 
-      {/* Lista */}
-      <FlatList
-        data={notifications}
-        keyExtractor={(item) => item.id}
-        renderItem={renderItem}
-        contentContainerStyle={{ padding: 16, paddingBottom: 80 }}
-      />
-
-  {/* ...existing code... */}
-    </View>);
 }
 
 const styles = StyleSheet.create({
@@ -70,13 +74,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
-  header: {
+   header: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#3C4AA8",
     paddingHorizontal: 16,
-    paddingVertical: 14,
-  },
+    paddingVertical: 14
+   },
   headerTitle: {
     color: "#fff",
     fontSize: 18,
