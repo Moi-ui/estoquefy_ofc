@@ -1,11 +1,11 @@
-import { FontAwesome5, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome5, Ionicons, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React from "react";
 import { Alert, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useAuth } from "../../contexts/AuthContext"
+import { useAuth } from "../../contexts/AuthContext";
 
-export default function HomeSolicitante() {
+export default function HomeAprovador() {
   const { user, signOut } = useAuth();
 
   async function handleLogout() {
@@ -31,13 +31,12 @@ export default function HomeSolicitante() {
       <StatusBar translucent barStyle="dark-content" />
       <SafeAreaView style={styles.safeArea} edges={["top", "right", "left"]}>
         <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
-          
           {/* Barra de pesquisa no topo
           <View style={styles.searchBar}>
             <Ionicons name="search" size={20} color="#888" style={{ marginRight: 8 }} />
             <TextInput
               style={styles.input}
-              placeholder="Buscar produtos, solicitações..."
+              placeholder="Buscar solicitações pendentes..."
               placeholderTextColor="#888"
             />
             <TouchableOpacity onPress={handleLogout}>
@@ -47,44 +46,74 @@ export default function HomeSolicitante() {
 
           {/* Header com dados do usuário */}
           <View style={styles.headerModern}>
-            <Ionicons name="person-circle" size={54} color="#3F51B5" />
-            <Text style={styles.headerNameModern}>{user?.nome || 'Usuário'}</Text>
+            <MaterialCommunityIcons name="account-check" size={54} color="#FF9800" />
+            <Text style={styles.headerNameModern}>{user?.nome || 'Aprovador'}</Text>
             <Text style={styles.headerEmailModern}>{user?.email || ''}</Text>
-            <View style={[styles.badge, styles.badgeSolicitante]}>
-              <Text style={styles.badgeText}>👤 Solicitante</Text>
+            <View style={[styles.badge, styles.badgeAprovador]}>
+              <Text style={styles.badgeText}>📋 Coordenação / Aprovador</Text>
+            </View>
+          </View>
+
+          {/* Resumo de pendências */}
+          <View style={styles.summaryContainer}>
+            <View style={styles.summaryCard}>
+              <Text style={styles.summaryNumber}>12</Text>
+              <Text style={styles.summaryLabel}>Pendentes</Text>
+            </View>
+            <View style={styles.summaryCard}>
+              <Text style={[styles.summaryNumber, { color: '#4CAF50' }]}>8</Text>
+              <Text style={styles.summaryLabel}>Aprovadas Hoje</Text>
+            </View>
+            <View style={styles.summaryCard}>
+              <Text style={[styles.summaryNumber, { color: '#F44336' }]}>3</Text>
+              <Text style={styles.summaryLabel}>Rejeitadas</Text>
             </View>
           </View>
 
           {/* Saudação */}
-          <Text style={styles.welcomeModern}>Olá! O que você precisa hoje? 👋</Text>
+          <Text style={styles.welcomeModern}>Painel de Aprovações 📋</Text>
 
-          {/* Menu Cards - SOLICITANTE */}
+          {/* Menu Cards - APROVADOR */}
           <View style={styles.menuModern}>
-            {/* Nova Solicitação - Destaque */}
-            <TouchableOpacity style={[styles.cardModern, styles.cardDestaque]} onPress={() => router.push('/nova_solicitacao')}>
-              <Ionicons name="add-circle" size={36} color="#fff" />
-              <Text style={[styles.cardTextModern, styles.cardTextDestaque]}>Nova Solicitação</Text>
-              <Text style={styles.cardSubtext}>Solicite ferramentas e materiais</Text>
+            {/* Solicitações Pendentes - DESTAQUE */}
+            <TouchableOpacity style={[styles.cardModern, styles.cardDestaque]} onPress={() => router.push('/solicitacoes_pendentes')}>
+              <MaterialIcons name="pending-actions" size={36} color="#fff" />
+              <Text style={[styles.cardTextModern, styles.cardTextDestaque]}>Solicitações Pendentes</Text>
+              <Text style={styles.cardSubtext}>12 aguardando aprovação</Text>
             </TouchableOpacity>
 
-            {/* Cards duplos */}
+            {/* Cards duplos
             <View style={styles.rowModern}>
-              <TouchableOpacity style={styles.cardSmallModern} onPress={() => router.push('/minhas_solicitacoes')}>
-                <MaterialIcons name="list-alt" size={28} color="#3F51B5" />
-                <Text style={styles.cardTextModern}>Minhas Solicitações</Text>
+              <TouchableOpacity style={styles.cardSmallModern}>
+                <MaterialIcons name="check-circle-outline" size={28} color="#FF9800" />
+                <Text style={styles.cardTextModern}>Aprovadas</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.cardSmallModern}>
+                <MaterialIcons name="cancel" size={28} color="#FF9800" />
+                <Text style={styles.cardTextModern}>Rejeitadas</Text>
+              </TouchableOpacity>
+            </View> */}
+
+            {/* Histórico de Aprovações */}
+            <TouchableOpacity style={styles.cardModern} onPress={() => router.push('/historico_aprovador')}>
+              <MaterialIcons name="history" size={32} color="#FF9800" />
+              <Text style={styles.cardTextModern}>Histórico de Aprovações</Text>
+            </TouchableOpacity>
+
+            {/* Cards duplos - Relatórios e Configurações */}
+            <View style={styles.rowModern}>
+              <TouchableOpacity style={styles.cardSmallModern} onPress={() => router.push('/relatorios_apv')}>
+                <FontAwesome5 name="chart-bar" size={28} color="#FF9800"/>
+                <Text style={styles.cardTextModern}>Relatórios</Text>
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.cardSmallModern} onPress={() => router.push('/notificacoes')}>
-                <Ionicons name="notifications-outline" size={28} color="#3F51B5" />
+                <Ionicons name="notifications-outline" size={28} color="#FF9800" />
                 <Text style={styles.cardTextModern}>Notificações</Text>
               </TouchableOpacity>
             </View>
 
-            {/* Card Histórico */}
-            <TouchableOpacity style={styles.cardModern} onPress={() => router.push('/historico_solicitacao')}>
-              <MaterialIcons name="history" size={32} color="#3F51B5" />
-              <Text style={styles.cardTextModern}>Histórico de Solicitações</Text>
-            </TouchableOpacity>
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -144,17 +173,45 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     marginTop: 8,
   },
-  badgeSolicitante: {
-    backgroundColor: '#E3F2FD',
+  badgeAprovador: {
+    backgroundColor: '#FFF3E0',
   },
   badgeText: {
-    color: '#3F51B5',
+    color: '#FF9800',
     fontSize: 13,
     fontWeight: '600',
   },
+  summaryContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    gap: 10,
+    marginBottom: 20,
+  },
+  summaryCard: {
+    flex: 1,
+    backgroundColor: '#fff',
+    padding: 16,
+    borderRadius: 12,
+    alignItems: 'center',
+    shadowColor: "#000",
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  summaryNumber: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#FF9800',
+  },
+  summaryLabel: {
+    fontSize: 12,
+    color: '#888',
+    marginTop: 4,
+    textAlign: 'center',
+  },
   welcomeModern: {
     fontSize: 18,
-    color: "#3F51B5",
+    color: "#FF9800",
     fontWeight: "600",
     marginBottom: 20,
     textAlign: "center",
@@ -175,11 +232,11 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   cardDestaque: {
-    backgroundColor: "#3F51B5",
+    backgroundColor: "#FF9800",
     paddingVertical: 28,
   },
   cardTextModern: {
-    color: "#3F51B5",
+    color: "#FF9800",
     marginTop: 8,
     fontWeight: "600",
     fontSize: 16,
@@ -190,7 +247,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   cardSubtext: {
-    color: "#E3F2FD",
+    color: "#FFF3E0",
     fontSize: 13,
     marginTop: 4,
   },

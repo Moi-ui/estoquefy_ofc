@@ -55,20 +55,18 @@ export default function Navbar() {
 
   return (
     <View style={styles.bottomNav}>
-      <TouchableOpacity style={styles.navButton} onPress={() => router.push('/home')}>
-        <Ionicons name="home-outline" size={28} color="#FFF" />
+
+      {/* Botão de Configurações*/}
+      <TouchableOpacity style={styles.navButton} onPress={() => router.push('/configuracoes')}>
+        <Ionicons name="settings-outline" size={28} color="#FFF" />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.navButton} onPress={() => router.push('/solicitacoes_para_separar')}>
-        <Ionicons name="document-text-outline" size={28} color="#FFF" />
+      {/* Botão de Notificações*/}
+      <TouchableOpacity style={styles.cardModern} onPress={() => router.push('/notificacoes')}>
+        <Ionicons name="notifications-outline" size={32} color="#FFF" />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.navButtonCenterCircle} onPress={() => router.push('/nova_solicitacao')}>
-        <Ionicons name="arrow-up-circle" size={36} color="#FFF" />
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.navButton} onPress={() => router.push('/solicitacao')}>
-        <Ionicons name="cube-outline" size={28} color="#FFF" />
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.navButton} onPress={() => router.push('/notificacoes')}>
-        <Ionicons name="notifications-outline" size={28} color="#FFF" />
+      {/* Botão de Suporte/Ajuda*/}
+      <TouchableOpacity style={styles.navButton} onPress={() => router.push('/suporte')}>
+        <Ionicons name="help-circle-outline" size={35} color="#FFF" />
       </TouchableOpacity>
     </View>
   );

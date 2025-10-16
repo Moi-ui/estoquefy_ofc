@@ -1,104 +1,111 @@
 import { router } from "expo-router";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert, KeyboardAvoidingView, Platform } from "react-native";
+import { useState } from "react";
 
 export default function Login() {
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+
+  const handleLogin = () => {
+    // Login para cada tipo de usuário.
+    if (email === 'solicitante' && senha === 'solicitante') {
+      router.push('/home');
+    } else if (email === 'aprovador' && senha === 'aprovador'){
+      router.push('/home_aprovador')
+    } else if (email === 'almoxarife' && senha === 'almoxarife'){
+      router.push('/home_almoxarife')
+    }
+  };
+
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+    >
       <Text style={styles.title}>BEM-VINDO(A) DE VOLTA</Text>
 
-      <View style={styles.subcont}>
+      <View style={styles.form}>
         <TextInput
           placeholder="Nome de usuário ou Email"
           style={styles.input}
+          value={email}
+          onChangeText={setEmail}
+          autoCapitalize="none"
         />
 
         <TextInput
           placeholder="Senha"
           secureTextEntry
           style={styles.input}
+          value={senha}
+          onChangeText={setSenha}
         />
 
-        <TouchableOpacity style={styles.button} onPress={() => router.push('/home')}>
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
 
         <TouchableOpacity>
           <View style={styles.wrapper}>
-            <Text style={styles.customText}>Esqueceu a senha?</Text>
+            <Text style={styles.forgotText}>Esqueceu a senha?</Text>
             <View style={styles.underline} />
           </View>
         </TouchableOpacity>
-        </View>
-    </View>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     backgroundColor: "#fff",
-  },
-  subcont:{
-    flex: 1,
-    marginTop:45
+    padding: 20,
+    justifyContent: "center",
   },
   title: {
-    fontSize: 43,
-    fontWeight: "bold",
-    color: "#3C4AA8",
-    marginTop: 100
-  },
-  subtitle: {
-    fontSize: 22,
+    fontSize: 36,
     fontWeight: "bold",
     color: "#3C4AA8",
     textAlign: "center",
-    marginBottom: 30,
+    marginBottom: 40,
+  },
+  form: {
+    width: "100%",
   },
   input: {
     borderWidth: 1,
     borderColor: "#ccc",
-    borderRadius: 8,
-    padding: 20,
-    marginBottom: 15,
-    marginTop: 25,
-    margin: 18
+    borderRadius: 10,
+    padding: 16,
+    marginBottom: 20,
+    fontSize: 16,
   },
   button: {
     backgroundColor: "#3C4AA8",
-    padding: 20,
-    borderRadius: 20,
+    padding: 16,
+    borderRadius: 12,
     alignItems: "center",
-    marginBottom: 15,
-    marginTop: 60,
-    margin: 35
+    marginBottom: 20,
   },
   buttonText: {
     color: "#fff",
     fontWeight: "bold",
-    fontSize: 16,
-  },
-  forgotText: {
-    color: "#3E4DD0",
-    textAlign: "center",
-    marginBottom: 20,
-  },
-  registerText: {
-    textAlign: "center",
-    color: "#000",
-  },
-    wrapper: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  customText: {
-    color: "#3C4AA8",
     fontSize: 18,
   },
+  wrapper: {
+    alignItems: "center",
+  },
+  forgotText: {
+    color: "#3C4AA8",
+    fontSize: 16,
+    marginBottom: 4,
+  },
   underline: {
-    height: 2,                
+    height: 2,
+    width: 120,
     backgroundColor: "#3C4AA8",
-    marginTop: 2,            
-  }
+    marginTop: 2,
+    borderRadius: 2,
+  },
 });

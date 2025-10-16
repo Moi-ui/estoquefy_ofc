@@ -17,7 +17,7 @@ const SolicitacaoDetalhesScreen = () => {
              {/* Header */}
                     <View style={styles.header}>
                       <Ionicons name="arrow-back" size={28} color="#fff"/>
-                      <Text style={styles.headerTitle}>Minhas Solicitação</Text>
+                      <Text style={styles.headerTitle}>Minhas Solicitações</Text>
                     </View>
             {/* Content */}
             <ScrollView style={styles.scrollView}>

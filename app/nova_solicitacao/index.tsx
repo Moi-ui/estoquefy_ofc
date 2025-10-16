@@ -1,121 +1,223 @@
-import { Ionicons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
 import React, { useState } from "react";
-import { SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  StatusBar,
+  Alert,
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
-export default function NovaSolicitacao() {
-  const router = useRouter();
-  const [codigo, setCodigo] = useState("");
-  const [categoria, setCategoria] = useState("Material de Consumo (MC)");
-  const [quantidade, setQuantidade] = useState("0");
+export default function NovaSolicitacao({ navigation }) {
+  const [area, setArea] = useState("");
+  const [produto, setProduto] = useState("");
+  const [quantidade, setQuantidade] = useState("");
   const [justificativa, setJustificativa] = useState("");
+  const [dropdownVisivel, setDropdownVisivel] = useState(false);
 
-  const handleSubmit = () => {
-    console.log({
-      codigo,
-      categoria,
-      quantidade,
-      justificativa,
-    });
-    alert("Solicitação enviada!");
+  const areas = [
+    "Materiais de Escritório",
+    "Limpeza e Higiene",
+    "Ferramentas",
+    "Equipamentos de Produção",
+    "Segurança",
+  ];
+
+  const handleEnviar = () => {
+    if (!area || !produto || !quantidade) {
+      Alert.alert("Atenção", "Preencha todos os campos obrigatórios!");
+      return;
+    }
+
+    Alert.alert("Solicitação enviada!", "A solicitação foi registrada com sucesso.");
+    setArea("");
+    setProduto("");
+    setQuantidade("");
+    setJustificativa("");
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
-        {/* Header */}
-        <View style={styles.header}>
-          <Ionicons name="arrow-back" size={28} color="#fff" />
-          <Text style={styles.headerTitle}>Nova Solicitação</Text>
-        </View>
+    <View style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#3C4AA8" />
 
-        {/* Form */}
-        <View style={styles.form}>
-          <Text style={styles.label}>Código do Produto</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Digite o código"
-            value={codigo}
-            onChangeText={setCodigo}
+      {/* Header */}
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Ionicons name="arrow-back" size={26} color="#fff" />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>Nova Solicitação</Text>
+      </View>
+
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={{ paddingBottom: 120 }}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Campo Área */}
+        <Text style={styles.label}>Área do Almoxarifado *</Text>
+        <TouchableOpacity
+          style={styles.select}
+          onPress={() => setDropdownVisivel(!dropdownVisivel)}
+          activeOpacity={0.7}
+        >
+          <Text style={{ color: area ? "#000" : "#999" }}>
+            {area || "Selecione uma área..."}
+          </Text>
+          <Ionicons
+            name={dropdownVisivel ? "chevron-up" : "chevron-down"}
+            size={20}
+            color="#555"
           />
+        </TouchableOpacity>
 
-          <Text style={styles.label}>Categoria</Text>
-          <View style={styles.selectBox}>
-            <TextInput
-              style={[styles.input, { flex: 1, borderWidth: 0, marginBottom: 0 }]}
-              value={categoria}
-              editable={false}
-            />
-            <Ionicons name="chevron-down" size={20} color="#555" style={{ marginRight: 10 }} />
+        {dropdownVisivel && (
+          <View style={styles.dropdown}>
+            {areas.map((item, index) => (
+              <TouchableOpacity
+                key={index}
+                style={[
+                  styles.dropdownItem,
+                  area === item && styles.dropdownItemSelected,
+                ]}
+                onPress={() => {
+                  setArea(item);
+                  setDropdownVisivel(false);
+                }}
+              >
+                <Text
+                  style={{
+                    color: area === item ? "#3C4AA8" : "#333",
+                    fontWeight: area === item ? "bold" : "normal",
+                  }}
+                >
+                  {item}
+                </Text>
+              </TouchableOpacity>
+            ))}
           </View>
+        )}
 
-          <Text style={styles.label}>Quantidade</Text>
-          <TextInput
-            style={styles.input}
-            keyboardType="numeric"
-            value={quantidade}
-            onChangeText={setQuantidade}
-          />
+        {/* Campo Produto */}
+        <Text style={styles.label}>Produto *</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Ex: Papel A4"
+          value={produto}
+          onChangeText={setProduto}
+        />
 
-          <Text style={styles.label}>Justificativa</Text>
-          <TextInput
-            style={[styles.input, { height: 80, textAlignVertical: "top" }]}
-            placeholder="Descreva o motivo da solicitação"
-            multiline
-            value={justificativa}
-            onChangeText={setJustificativa}
-          />
-        </View>
+        {/* Campo Quantidade */}
+        <Text style={styles.label}>Quantidade *</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Ex: 10 unidades"
+          value={quantidade}
+          onChangeText={setQuantidade}
+          keyboardType="numeric"
+        />
+
+        {/* Campo Justificativa */}
+        <Text style={styles.label}>Justificativa (opcional)</Text>
+        <TextInput
+          style={[styles.input, styles.textArea]}
+          placeholder="Ex: Reposição de materiais do setor administrativo"
+          value={justificativa}
+          onChangeText={setJustificativa}
+          multiline
+        />
+
+        {/* Botão Enviar */}
+        <TouchableOpacity style={styles.button} onPress={handleEnviar}>
+          <Ionicons name="send-outline" size={18} color="#fff" />
+          <Text style={styles.buttonText}>Enviar Solicitação</Text>
+        </TouchableOpacity>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-  container: {
-    flexGrow: 1,
-  
-    paddingBottom: 80,
-    backgroundColor: "#fff",
-  },
+  container: { flex: 1, backgroundColor: "#F9F9F9" },
   header: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#3C4AA8",
     paddingHorizontal: 16,
-    paddingVertical: 14
+    paddingVertical: 14,
   },
   headerTitle: {
     color: "#fff",
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: "bold",
     marginLeft: 10,
   },
-  form: { padding: 20,
-    justifyContent: "flex-start"
-   },
-  label: { fontWeight: "600", marginBottom: 5, fontSize: 14 },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 8,
-    padding: 10,
-    marginBottom: 15,
+  scroll: { padding: 16 },
+
+  label: {
     fontSize: 14,
-    backgroundColor: "#f9f9f9",
+    fontWeight: "bold",
+    color: "#333",
+    marginTop: 14,
+    marginBottom: 6,
   },
-  selectBox: {
+  input: {
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    fontSize: 14,
+  },
+  textArea: {
+    height: 90,
+    textAlignVertical: "top",
+  },
+  select: {
+    backgroundColor: "#fff",
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
     flexDirection: "row",
     alignItems: "center",
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 8,
-    marginBottom: 15,
-    backgroundColor: "#f9f9f9",
+    justifyContent: "space-between",
   },
-  // ...existing code...
+  dropdown: {
+    backgroundColor: "#fff",
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 10,
+    marginTop: 6,
+    overflow: "hidden",
+  },
+  dropdownItem: {
+    paddingVertical: 12,
+    paddingHorizontal: 14,
+    borderBottomWidth: 1,
+    borderBottomColor: "#eee",
+  },
+  dropdownItemSelected: {
+    backgroundColor: "#E9ECFF",
+  },
+  button: {
+    flexDirection: "row",
+    backgroundColor: "#3C4AA8",
+    borderRadius: 10,
+    marginTop: 30,
+    paddingVertical: 14,
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 6,
+    elevation: 3,
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
+  },
 });
