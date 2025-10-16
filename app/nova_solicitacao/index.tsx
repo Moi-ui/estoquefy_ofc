@@ -10,6 +10,7 @@ import {
   Alert,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function NovaSolicitacao({ navigation }) {
   const [area, setArea] = useState("");
@@ -40,12 +41,13 @@ export default function NovaSolicitacao({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
+  <SafeAreaView  style={styles.container}>
+    <View>
       <StatusBar barStyle="light-content" backgroundColor="#3C4AA8" />
 
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={goBack}>
           <Ionicons name="arrow-back" size={26} color="#fff" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Nova Solicitação</Text>
@@ -136,11 +138,12 @@ export default function NovaSolicitacao({ navigation }) {
         </TouchableOpacity>
       </ScrollView>
     </View>
+  </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#F9F9F9" },
+  container: { flex: 1, backgroundColor: "#F8F9FB" },
   header: {
     flexDirection: "row",
     alignItems: "center",

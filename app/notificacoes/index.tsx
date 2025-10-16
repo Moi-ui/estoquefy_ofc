@@ -5,8 +5,8 @@ import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function App() {
-  const insets = useSafeAreaInsets()
 
+  const insets = useSafeAreaInsets()
   const notifications = [
     {
       id: "1",
@@ -43,7 +43,8 @@ export default function App() {
   );
 
   return (
-    <View style={styles.container}>
+    
+    <View>
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={goBack}>
