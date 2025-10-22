@@ -6,7 +6,6 @@ import { Ionicons } from "@expo/vector-icons";
 
 export default function Suporte() {
   const { darkMode } = useTheme();
-r
   return (
     <SafeAreaView
       style={[styles.container, { backgroundColor: darkMode ? "#121212" : "#F8F9FB" }]}

@@ -1,10 +1,12 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, StatusBar } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { router } from "expo-router";
 
 export default function SolicitacoesAprovadas() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#3C4AA8" />
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()}>
           <Ionicons name="arrow-back" size={26} color="#FFFFFF" />
@@ -18,7 +20,7 @@ export default function SolicitacoesAprovadas() {
           Aqui serão exibidas as solicitações que já foram aprovadas e aguardam separação.
         </Text>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context'
 
-// 🔹 Estrutura inicial de um item de almoxarifado
+// 🔹 Estrutura inicial de um item de almoxarifado    
 interface Item {
   id: string;
   nome: string;
@@ -48,7 +49,7 @@ export default function ItensScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Itens do Almoxarifado</Text>
 
       <View style={styles.searchContainer}>
@@ -89,7 +90,7 @@ export default function ItensScreen() {
       <TouchableOpacity style={styles.addButton}>
         <MaterialIcons name="add" size={28} color="#fff" />
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -99,6 +100,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 16,
   },
+
   title: {
     fontSize: 26,
     fontWeight: 'bold',
@@ -106,6 +108,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     textAlign: 'center',
   },
+
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -116,11 +119,13 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     marginBottom: 20,
   },
+
   searchInput: {
     flex: 1,
     fontSize: 16,
     marginLeft: 8,
   },
+
   card: {
     backgroundColor: '#f5f6ff',
     borderRadius: 16,
@@ -129,16 +134,19 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#e0e0e0',
   },
+
   itemNome: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#333',
   },
+
   itemCategoria: {
     color: '#666',
     fontSize: 15,
     marginVertical: 4,
   },
+
   itemQtd: {
     fontSize: 15,
     color: '#3C4AA8',

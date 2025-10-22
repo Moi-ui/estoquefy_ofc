@@ -1,14 +1,16 @@
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
+import { SafeAreaView } from 'react-native-safe-area-context'
 import {
   FlatList,
-  SafeAreaView,
   StyleSheet,
+  StatusBar,
   Text,
   View,
   TouchableOpacity,
   Alert,
 } from "react-native";
+import { goBack } from "expo-router/build/global-state/routing";
 
 const solicitacoes = [
   {
@@ -17,12 +19,14 @@ const solicitacoes = [
     quantidade: "10",
     justificativa: "Aumento de demanda",
   },
+
   {
     id: "2",
     codigo: "POP002",
     quantidade: "5",
     justificativa: "Reposição de estoque",
   },
+
   {
     id: "3",
     codigo: "PEP003",
@@ -30,7 +34,6 @@ const solicitacoes = [
     justificativa: "Ordens de produção",
   },
 ];
-
 export default function SolicitacoesSeparar({ navigation }: any) {
   const handleAprovar = (item: any) => {
     Alert.alert("Solicitação aprovada", `Produto ${item.codigo} aprovado! ✅`);
@@ -81,9 +84,10 @@ export default function SolicitacoesSeparar({ navigation }: any) {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#3C4AA8" />
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation?.goBack()}>
+        <TouchableOpacity onPress={goBack}>
           <Ionicons name="arrow-back" size={24} color="#fff" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Solicitações Pendentes</Text>
